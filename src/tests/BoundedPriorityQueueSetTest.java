@@ -43,4 +43,27 @@ class BoundedPriorityQueueSetTest {
         int act = q.size();
         assertEquals(exp, act);
     }
+
+    /**
+     * isEmpty method, it is empty
+     */
+    @Test
+    void isEmpty_isEmpty() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        boolean exp = true;
+        boolean act = q.isEmpty();
+        assertEquals(exp, act);
+    }
+
+    /**
+     * isEmpty method, it is NOT empty
+     */
+    @Test
+    void isEmpty_butNot() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        boolean exp = false;
+        q.add(x);
+        boolean act = q.isEmpty();
+        assertEquals(exp, act);
+    }
 }
