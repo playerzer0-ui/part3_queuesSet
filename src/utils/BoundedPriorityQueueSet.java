@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.NoSuchElementException;
+
 public class BoundedPriorityQueueSet {
 
     private Node first;
@@ -96,6 +98,32 @@ public class BoundedPriorityQueueSet {
         }
         size++;
         return true;
+    }
+
+    /**
+     * get the task with the closest deadline
+     * @return the task with the closest deadline
+     */
+    public Task peek(){
+        if(isEmpty()){
+            throw new NoSuchElementException("queue is empty");
+        }
+        return first.data;
+    }
+
+
+    /**
+     * remove closest deadline from the queue
+     * @return removed task
+     */
+    public Task remove(){
+        if(isEmpty()){
+            throw new NoSuchElementException("queue is empty");
+        }
+        Node removed = first;
+        first = first.next;
+        size--;
+        return removed.data;
     }
 
     /**
