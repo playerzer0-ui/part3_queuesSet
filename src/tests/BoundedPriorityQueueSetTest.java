@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import utils.BoundedPriorityQueueSet;
+import utils.DuplicateElementException;
 import utils.Task;
 
 import java.time.LocalDate;
@@ -105,5 +106,64 @@ class BoundedPriorityQueueSetTest {
         q.add(e);
         boolean act = q.isFull();
         assertEquals(exp, act);
+    }
+
+    /**
+     * add method, normal scenario
+     */
+    @Test
+    void add_normal() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        assertTrue(q.add(a));
+        q.add(b);
+        q.add(c);
+        q.add(d);
+        int exp = 4;
+        int act = q.size();
+        //test size, which means added successfully
+        assertEquals(exp, act);
+
+        //check if it is the thing
+        Task found = q.peek();
+        assertEquals(a, found);
+
+        //check if it is sorted
+        String ex = "{Task{owner='jer', desc='do class', deadline=2023-04-01}, Task{owner='jer', " +
+                "desc='do class', deadline=2023-04-05}, Task{owner='jer', desc='do class', deadline=2023-04-06}, " +
+                "Task{owner='jer', desc='do class', deadline=2023-04-07}}";
+        String ac = q.toString();
+        assertEquals(ex, ac);
+    }
+
+    /**
+     * add method, but a duplicate is found
+     */
+    @Test
+    void add_duplicate_found() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        q.add(a);
+        q.add(b);
+        assertThrows(DuplicateElementException.class, ()->{q.add(a);});
+    }
+
+    /**
+     * add method, but it is too full
+     */
+    @Test
+    void add_but_too_full() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        q.add(x);
+        q.add(y);
+        q.add(z);
+        q.add(a);
+        q.add(b);
+        q.add(c);
+        q.add(d);
+        q.add(e);
+        q.add(f);
+        q.add(g);
+        assertThrows(IllegalStateException.class, ()->{
+            q.add(new Task("some", "one", LocalDate.parse("2077-07-07")));
+        });
     }
 }
