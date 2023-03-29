@@ -66,4 +66,44 @@ class BoundedPriorityQueueSetTest {
         boolean act = q.isEmpty();
         assertEquals(exp, act);
     }
+
+    /**
+     * isFull method, and it is FULL
+     */
+    @Test
+    void isFull_isIndeedFull() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        boolean exp = true;
+        q.add(x);
+        q.add(y);
+        q.add(z);
+        q.add(a);
+        q.add(b);
+        q.add(c);
+        q.add(d);
+        q.add(e);
+        q.add(f);
+        q.add(g);
+        boolean act = q.isFull();
+        assertEquals(exp, act);
+    }
+
+    /**
+     * isFull method, and it still has some remains
+     */
+    @Test
+    void isFull_butHasRemains() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        boolean exp = false;
+        q.add(x);
+        q.add(y);
+        q.add(z);
+        q.add(a);
+        q.add(b);
+        q.add(c);
+        q.add(d);
+        q.add(e);
+        boolean act = q.isFull();
+        assertEquals(exp, act);
+    }
 }
