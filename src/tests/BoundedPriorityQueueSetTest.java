@@ -6,6 +6,7 @@ import utils.DuplicateElementException;
 import utils.Task;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -165,5 +166,28 @@ class BoundedPriorityQueueSetTest {
         assertThrows(IllegalStateException.class, ()->{
             q.add(new Task("some", "one", LocalDate.parse("2077-07-07")));
         });
+    }
+
+    /**
+     * peek method, normal scenario
+     */
+    @Test
+    void peek_normal() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        q.add(a);
+        q.add(b);
+
+        Task found = q.peek();
+        assertEquals(a, found);
+    }
+
+    /**
+     * peek method, but it is empty
+     */
+    @Test
+    void peek_empty() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+
+        assertThrows(NoSuchElementException.class, q::peek);
     }
 }
