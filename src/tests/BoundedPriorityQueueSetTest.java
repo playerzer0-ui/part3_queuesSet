@@ -190,4 +190,32 @@ class BoundedPriorityQueueSetTest {
 
         assertThrows(NoSuchElementException.class, q::peek);
     }
+
+    /**
+     * remove method, normal scenario
+     */
+    @Test
+    void remove_normal() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        q.add(a);
+        q.add(b);
+        q.add(c);
+        Task exp = a;
+        Task act = q.remove();
+
+        //check if really removed
+        assertEquals(exp, act);
+
+        //check if size reduced
+        assertEquals(2, q.size());
+    }
+
+    /**
+     * remove method, but it is empty
+     */
+    @Test
+    void remove_but_empty() {
+        BoundedPriorityQueueSet q = new BoundedPriorityQueueSet();
+        assertThrows(NoSuchElementException.class, q::remove);
+    }
 }
