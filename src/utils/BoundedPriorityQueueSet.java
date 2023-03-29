@@ -51,6 +51,78 @@ public class BoundedPriorityQueueSet {
         return size >= MAX_CAPACITY;
     }
 
+    /**
+     * add a task to the queue, it is rejected if queue is full or if there is already a task there
+     * @param value the Task to add
+     * @return true
+     * @throws DuplicateElementException if found duplicate task
+     * @throws IllegalStateException if queue is full
+     */
+    public boolean add(Task value){
+        if(contains(value)){
+            throw new DuplicateElementException("task is already there");
+        }
+        if(isFull()){
+            throw new IllegalStateException("queue is full");
+        }
+
+        Node newNode = new Node(value);
+        if(first == null){
+            first = newNode;
+            last = newNode;
+        }
+        //if value deadline is sooner than the first
+        else if(value.getDeadline().compareTo(first.data.getDeadline()) < 0){
+            newNode.next = first;
+            first = newNode;
+        }
+        //if value deadline is smaller than the last
+        else if(value.getDeadline().compareTo(last.data.getDeadline()) >= 0){
+            last.next = newNode;
+            last = newNode;
+        }
+        //guess it's somewhere in the middle then
+        else{
+            Node prev = first;
+            Node current = first.next;
+            //keep comparing if the current has later deadline than the value
+            while(current.data.getDeadline().compareTo(value.getDeadline()) <= 0){
+                prev = current;
+                current = current.next;
+            }
+            //slip it in
+            prev.next = newNode;
+            newNode.next = current;
+        }
+        size++;
+        return true;
+    }
+
+    /**
+     * check to see if task is already there
+     * @param target the task to find
+     * @return true or false, if found or not
+     */
+    private boolean contains(Task target){
+        if(isEmpty()){
+            return false;
+        }
+
+        else if(first.data.equals(target) || last.data.equals(target)){
+            return true;
+        }
+        else{
+            Node current = first;
+            while(current.next != null){
+                if(current.data.equals(target)){
+                    return true;
+                }
+                current = current.next;
+            }
+        }
+        return false;
+    }
+
     private static class Node{
         private Task data;
         private Node next;
