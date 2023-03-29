@@ -25,6 +25,32 @@ public class BoundedPriorityQueueSet {
         size = 0;
     }
 
+    /**
+     * get the size of queue
+     * @return size
+     */
+    public int size(){
+        return size;
+    }
+
+
+    /**
+     * check if queue is empty
+     * @return true or false, if empty or not
+     */
+    public boolean isEmpty(){
+        return size <= 0;
+    }
+
+
+    /**
+     * check if queue is full
+     * @return true or false, if full or not
+     */
+    public boolean isFull(){
+        return size >= MAX_CAPACITY;
+    }
+
     private static class Node{
         private Task data;
         private Node next;
