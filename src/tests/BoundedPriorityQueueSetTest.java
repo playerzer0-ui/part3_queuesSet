@@ -11,16 +11,16 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoundedPriorityQueueSetTest {
-    Task x = new Task("jer", "do class", LocalDate.parse("2023-04-02"));
-    Task y = new Task("jer", "do class", LocalDate.parse("2023-04-04"));
-    Task z = new Task("jer", "do class", LocalDate.parse("2023-04-03"));
-    Task a = new Task("jer", "do class", LocalDate.parse("2023-04-01"));
-    Task b = new Task("jer", "do class", LocalDate.parse("2023-04-05"));
-    Task c = new Task("jer", "do class", LocalDate.parse("2023-04-06"));
-    Task d = new Task("jer", "do class", LocalDate.parse("2023-04-07"));
-    Task e = new Task("jer", "do class", LocalDate.parse("2023-04-08"));
-    Task f = new Task("jer", "do class", LocalDate.parse("2023-04-09"));
-    Task g = new Task("jer", "do class", LocalDate.parse("2023-04-10"));
+    Task x = new Task("jer", "do class", LocalDate.parse("2023-07-02"));
+    Task y = new Task("jer", "do class", LocalDate.parse("2023-07-04"));
+    Task z = new Task("jer", "do class", LocalDate.parse("2023-07-03"));
+    Task a = new Task("jer", "do class", LocalDate.parse("2023-07-01"));
+    Task b = new Task("jer", "do class", LocalDate.parse("2023-07-05"));
+    Task c = new Task("jer", "do class", LocalDate.parse("2023-07-06"));
+    Task d = new Task("jer", "do class", LocalDate.parse("2023-07-07"));
+    Task e = new Task("jer", "do class", LocalDate.parse("2023-07-08"));
+    Task f = new Task("jer", "do class", LocalDate.parse("2023-07-09"));
+    Task g = new Task("jer", "do class", LocalDate.parse("2023-07-10"));
 
     /**
      * size method, normal scenario
@@ -129,9 +129,10 @@ class BoundedPriorityQueueSetTest {
         assertEquals(a, found);
 
         //check if it is sorted
-        String ex = "{Task{owner='jer', desc='do class', deadline=2023-04-01}, Task{owner='jer', " +
-                "desc='do class', deadline=2023-04-05}, Task{owner='jer', desc='do class', deadline=2023-04-06}, " +
-                "Task{owner='jer', desc='do class', deadline=2023-04-07}}";
+        String ex = "{Task{owner='jer', desc='do class', deadline=2023-07-01}, " +
+                "Task{owner='jer', desc='do class', deadline=2023-07-05}, " +
+                "Task{owner='jer', desc='do class', deadline=2023-07-06}, " +
+                "Task{owner='jer', desc='do class', deadline=2023-07-07}}";
         String ac = q.toString();
         assertEquals(ex, ac);
     }
